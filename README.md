@@ -4,13 +4,17 @@
 
 ## 先打开什么
 
-Windows 用户在本文件所在目录操作：
+**只想运行 GUI：** 前往 [Releases 下载页](https://github.com/s1lentxDD/drone_swarm/releases/latest)，在 Assets 中下载 `drone_swarm-windows-x64-v0.1.1.zip`。这是包含预编译程序的 Windows x64 运行包，**不需要安装 Rust 或 Cargo**。请完整解压 ZIP 后再操作，不要在压缩包里直接运行脚本。
+
+**需要修改代码：** GitHub 的 `Code → Download ZIP` 和 Release 下的 `Source code` 下载的是源码，不包含 `release/command_gui.exe`，需要先按下方“开发环境”安装 Rust 才能编译。
+
+解压后，Windows 用户在本文件所在目录操作：
 
 1. 双击 `Preview-GUI.cmd`：打开界面演示，显示 d1、d2 两架静态示例无人机。
 2. 点击左侧 d1 或 d2，对应地图标记变黄，右侧显示状态。
 3. 点击“起飞”“降落”或地图上的位置，右侧日志显示生成的指令。**演示模式只检查界面，不发送网络指令，也不模拟飞行。**
 4. 双击 `Start-GUI.cmd`：打开普通模式。成员6的网络实现尚未接入时，列表为空是预期行为。
-5. 双击 `Open-Dev-Terminal.cmd`：打开已配置本机 Rust、Git 的命令窗口。输入下列命令后按回车。
+5. 已安装 Rust 的开发者可以双击 `Open-Dev-Terminal.cmd` 打开开发命令窗口。脚本会检查 Cargo，不会自动安装 Rust 或 Git。输入下列命令后按回车。
 
 ```text
 cargo build --workspace --locked
@@ -18,7 +22,11 @@ cargo test --workspace --locked
 cargo run --locked -p command_gui -- --demo
 ```
 
-如果没有预编译程序，两个启动脚本会通过 Cargo 编译后启动。首次编译需要网络下载依赖。启动失败时窗口会保留错误信息。
+两个 GUI 启动脚本优先运行 `release/command_gui.exe`。没有预编译程序时才会通过 Cargo 编译；首次编译需要网络下载依赖。如果找不到 Cargo，窗口会显示运行包下载地址和 Rust 安装指引。
+
+### 出现 “cargo is not recognized” 的原因
+
+这是旧启动脚本在找不到 Cargo 时的报错：下载的是源码包，同时当前命令窗口没有可用的 Rust 工具链。请下载上面的 Windows x64 运行包；如果要开发源码，则安装 Rust 后重新打开窗口，确认 `cargo --version` 能输出版本号。
 
 ## 交付范围
 
@@ -61,7 +69,7 @@ pub fn render(ui: &mut egui::Ui, drones: &std::collections::HashMap<String, shar
 
 ## 开发环境
 
-本机通过 `.local/dev-env.cmd` 复用已存在的 Rust GNU 工具链；该文件仅供本机使用，不提交 GitHub。其他电脑请自行安装 Git 和 Rust，然后运行 Cargo 命令。
+源码编译需要 Git 和 Rust。启动脚本会检查 PATH、`CARGO_HOME/bin` 和 `%USERPROFILE%/.cargo/bin` 中的 Cargo；也支持可选的 `.local/dev-env.cmd` 本机环境配置，该文件不提交 GitHub。运行包无需这些开发工具。
 
 - Rust 安装：[官方安装页](https://rust-lang.org/tools/install/)
 - Windows 默认 MSVC 工具链需要 Visual Studio C++ Build Tools。

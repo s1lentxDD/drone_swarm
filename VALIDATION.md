@@ -14,6 +14,12 @@
 - 演示模式明确标注“示例数据”“不发送指令”，测试确认演示指令不会进入网络队列。
 - 检查 GUI 指令与共享协议的 JSON 兼容性，快照移除无人机时清理选中状态，网络通道关闭时显示发送失败。
 
+## 启动与分发修复（v0.1.1）
+
+- 在移除 Cargo PATH、没有 `.local` 配置和预编译程序的临时目录验证三个启动脚本：均显示运行包下载地址与安装指引，返回失败状态，不再出现未经解释的 `cargo is not recognized`。
+- 单独验证 `CARGO_HOME/bin` 和 `%USERPROFILE%/.cargo/bin` 的自动查找：Cargo 不在 PATH 时仍可识别并输出版本号。
+- Windows x64 ZIP 包附带 `release/command_gui.exe`；源码 ZIP 仍需安装 Rust。README 已分别说明两种下载方式。
+
 ## 仍需小组联调
 
 当前 `drone_sim`、`command_server` 是阶段一骨架；GUI 的 `net.rs`、`video.rs` 是阶段六占位模块。未验证真实 TCP 通信、无人机运动、状态广播或视频流。这些属于其他成员实现后的全组联调。
