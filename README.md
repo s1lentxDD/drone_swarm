@@ -1,4 +1,4 @@
-# 无人机指挥站（宁波）——成员5交付
+# 无人机指挥站（宁波）
 
 依据 [DeepSeek 分享教程](https://chat.deepseek.com/share/t8pfy2di0rgih1b7po) 完成阶段一的工作区搭建与阶段六的 GUI 渲染。
 
