@@ -1,0 +1,7 @@
+[workspace]
+members = ["shared", "drone_sim", "command_server", "command_gui"]
+resolver = "2"
+
+[profile.dev]
+debug = 1
+
