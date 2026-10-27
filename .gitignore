@@ -1,0 +1,8 @@
+/target/
+**/*.rs.bk
+/.local/
+/release/
+*.log
+.DS_Store
+Thumbs.db
+
